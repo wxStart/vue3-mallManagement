@@ -22,23 +22,13 @@ const locale = zhCn;
       <SvgIcon name="car" width="30px" height="30px" />
       <SvgIcon name="motuo" color="red" />
     </el-config-provider>
+
+    <h3>测试scss的全局变量</h3>
   </div>
 </template>
 
 <style scoped lang="scss">
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-h1 {
-  color: #646cff;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+h3 {
+  color: $redColor;
 }
 </style>
