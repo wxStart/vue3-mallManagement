@@ -1,10 +1,16 @@
 import { createApp } from 'vue';
 import './style.css';
-import App from './App.vue';
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
 
-function add(n) {
-  console.log('测试格式化代111码sdad1' + n);
-}
+import 'virtual:svg-icons-register';
+import globaleComponent from './components/index.ts';
 
-add(1);
-createApp(App).mount('#app');
+import App from '@/App.vue';
+
+const app = createApp(App);
+
+app.use(globaleComponent);
+
+app.use(ElementPlus);
+app.mount('#app');

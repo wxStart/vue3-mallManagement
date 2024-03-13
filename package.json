@@ -8,6 +8,8 @@
     "dev": "vite --open",
     "prebuild": "node ./scripts/check-pm.js",
     "build": "vue-tsc && vite build",
+    "build:test": "vue-tsc && vite build --mode test",
+    "build:pro": "vue-tsc && vite build --mode production",
     "preview": "vite preview",
     "lint": "eslint src",
     "fix": "eslint src --fix",
@@ -42,6 +44,8 @@
     }
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "element-plus": "^2.6.1",
     "vue": "^3.4.21"
   },
   "devDependencies": {
@@ -80,6 +84,7 @@
     "stylelint-scss": "^6.2.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.6",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.8.27"
   }
 }

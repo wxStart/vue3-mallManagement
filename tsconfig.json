@@ -5,6 +5,10 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "baseUrl": "./", // 解析默认地址
+    "paths": {
+      "@/*": ["scr/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
