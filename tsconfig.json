@@ -9,6 +9,7 @@
     "paths": {
       "@/*": ["scr/*"]
     },
+    "types": ["vite/client"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",

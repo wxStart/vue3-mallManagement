@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { ElConfigProvider } from 'element-plus';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Menu } from '@element-plus/icons-vue';
 import zhCn from 'element-plus/dist/locale/zh-cn';
+
+import { reqLogin } from './api/user/index';
 
 const size = ref<'default' | 'large' | 'small'>('default');
 const time = ref('');
 const locale = zhCn;
+
+onMounted(() => {
+  reqLogin({ username: 'admin', password: '111111' });
+});
 </script>
 
 <template>

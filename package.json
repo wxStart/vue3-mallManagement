@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "axios": "^1.6.7",
     "element-plus": "^2.6.1",
     "vue": "^3.4.21"
   },
@@ -52,6 +53,7 @@
     "@babel/eslint-parser": "^7.23.10",
     "@commitlint/cli": "^19.1.0",
     "@commitlint/config-conventional": "^19.1.0",
+    "@types/node": "^20.11.27",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-vue": "^5.0.4",
@@ -67,6 +69,7 @@
     "eslint-plugin-vue": "^9.23.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.2",
+    "mockjs": "^1.1.0",
     "postcss": "^8.4.35",
     "postcss-html": "^1.6.0",
     "postcss-scss": "^4.0.9",
@@ -84,6 +87,7 @@
     "stylelint-scss": "^6.2.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.6",
+    "vite-plugin-mock": "^3.0.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.8.27"
   }
