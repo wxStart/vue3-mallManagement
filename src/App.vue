@@ -5,15 +5,16 @@ const locale = zhCn;
 </script>
 
 <template>
-  <div>
-    <el-config-provider :locale="locale">
-      <router-view></router-view>
-    </el-config-provider>
-  </div>
+  <el-config-provider :locale="locale">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
 
-<style scoped lang="scss">
-h3 {
-  color: $redColor;
+<style lang="scss">
+#app {
+  width: 100%;
+}
+body {
+  margin: 0px !important;
 }
 </style>
