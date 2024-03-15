@@ -1,6 +1,6 @@
 // 统一管理用户相关的接口
 
-import request from '../../utils/request';
+import request from 'src/utils/request.ts';
 import type {
   loginForm,
   loginResponseData,

@@ -10,6 +10,7 @@ interface loginDataType {
 export interface loginResponseData {
   code: number;
   data: loginDataType;
+  message?: string;
   [props: string]: any;
 }
 
@@ -31,5 +32,6 @@ interface user {
 export interface userInfoResponseData {
   code: number;
   data: user;
+  message?: string;
   [props: string]: any;
 }

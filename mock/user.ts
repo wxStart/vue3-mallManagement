@@ -45,7 +45,7 @@ export default [
     },
   },
   {
-    url: '/api/userInfo',
+    url: '/api/user/info',
     method: 'get',
     timeout: 2000,
     response: (req) => {

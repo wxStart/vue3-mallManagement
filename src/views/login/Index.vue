@@ -1,14 +1,37 @@
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { ElNotification } from 'element-plus';
 
+import useUserStore from 'src/store/modules/user';
 let loginForm = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '111111',
 });
+const loginLoading = ref(false);
 
-const onLogin = () => {
-  console.log('onLogin: ');
+const $router = useRouter();
+console.log('$router: ', $router);
+const userStore = useUserStore();
+const onLogin = async () => {
+  loginLoading.value = true;
+
+  try {
+    await userStore.handleLogin(loginForm);
+    $router.push('/');
+    ElNotification({
+      type: 'success',
+      message: '登录成功',
+    });
+  } catch (error) {
+    console.log('error: ', error);
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
+    });
+  }
+  loginLoading.value = false;
 };
 </script>
 
@@ -36,7 +59,12 @@ const onLogin = () => {
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button class="login-btn" type="primary" @click="onLogin">
+            <el-button
+              class="login-btn"
+              type="primary"
+              :loading="loginLoading"
+              @click="onLogin"
+            >
               登录
             </el-button>
           </el-form-item>
