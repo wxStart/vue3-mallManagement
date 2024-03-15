@@ -3,11 +3,13 @@ import { reactive } from 'vue';
 // import { reqLogin } from '../../api/user/index';
 import { reqLogin, reqUserInfo } from 'src/api/user/index';
 import type { loginForm } from '../../api/user/type';
+import type { UserState } from './types/type';
+import { setToken } from 'src/utils/token';
 
 const useUserStore = defineStore('User', () => {
-  const user = reactive({
+  const user: UserState = reactive({
     userInfo: {},
-    token: '',
+    token: sessionStorage.getItem('token'),
   });
 
   async function handleLogin(data: loginForm) {
@@ -15,7 +17,8 @@ const useUserStore = defineStore('User', () => {
     if (result.code == 200) {
       user.token = result.data.token;
       // 本地存储
-      window.sessionStorage.setItem('token', user.token);
+      // window.sessionStorage.setItem('token', user.token);
+      setToken(user.token);
       setUserInfo();
       return { ok: true, mssage: '登录成功' };
     } else {

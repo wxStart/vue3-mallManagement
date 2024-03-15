@@ -3,6 +3,7 @@ import { User, Lock } from '@element-plus/icons-vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElNotification } from 'element-plus';
+import type { FormInstance, FormRules } from 'element-plus';
 
 import useUserStore from 'src/store/modules/user';
 let loginForm = reactive({
@@ -14,24 +15,69 @@ const loginLoading = ref(false);
 const $router = useRouter();
 console.log('$router: ', $router);
 const userStore = useUserStore();
-const onLogin = async () => {
-  loginLoading.value = true;
 
-  try {
-    await userStore.handleLogin(loginForm);
-    $router.push('/');
-    ElNotification({
-      type: 'success',
-      message: '登录成功',
-    });
-  } catch (error) {
-    console.log('error: ', error);
-    ElNotification({
-      type: 'error',
-      message: (error as Error).message,
-    });
+interface RuleForm {
+  username: string;
+  password: string;
+}
+const ruleFormRef = ref<FormInstance>();
+
+const validatePass = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入密码'));
+  } else {
+    if (value.length < 6) {
+      callback(new Error('密码长度必须大于6位'));
+      return;
+    }
+
+    callback();
   }
-  loginLoading.value = false;
+};
+
+const rules = reactive<FormRules<RuleForm>>({
+  username: [
+    {
+      required: true,
+      min: 6,
+      max: 10,
+      message: '用户名长度应该为6到10位',
+      trigger: 'change',
+    },
+  ],
+  password: [
+    {
+      validator: validatePass,
+      trigger: ['blur', 'change'],
+    },
+  ],
+});
+
+const onLogin = (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  // 表单验证
+  formEl.validate(async (valid) => {
+    if (!valid) {
+      return false;
+    }
+    loginLoading.value = true;
+
+    try {
+      await userStore.handleLogin(loginForm);
+      $router.push('/');
+      ElNotification({
+        type: 'success',
+        message: '登录成功',
+      });
+    } catch (error) {
+      console.log('error: ', error);
+      ElNotification({
+        type: 'error',
+        message: (error as Error).message,
+      });
+    }
+    loginLoading.value = false;
+  });
 };
 </script>
 
@@ -40,16 +86,21 @@ const onLogin = async () => {
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login" :model="loginForm">
+        <el-form
+          class="login"
+          ref="ruleFormRef"
+          :model="loginForm"
+          :rules="rules"
+        >
           <h1>天选智谷~~~</h1>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
               v-model="loginForm.username"
               placeholder="账号"
               :prefix-icon="User"
             ></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               type="password"
               v-model="loginForm.password"
@@ -63,7 +114,7 @@ const onLogin = async () => {
               class="login-btn"
               type="primary"
               :loading="loginLoading"
-              @click="onLogin"
+              @click="onLogin(ruleFormRef)"
             >
               登录
             </el-button>
