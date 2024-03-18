@@ -23,7 +23,7 @@
       @click="toPage(menuItem.children[0])"
     >
       <el-icon color="#409EFC" class="no-inherit">
-        <Component :is="menuItem.meta.icon" />
+        <Component :is="menuItem.children[0].meta.icon" />
       </el-icon>
       <template #title>
         <span>
