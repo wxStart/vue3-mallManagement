@@ -29,11 +29,11 @@ import Logo from './logo/Index.vue';
 import Menu from './menu/Index.vue';
 import MainPage from './main/Index.vue';
 import TabBar from './tabbar/Index.vue';
+import { useRoute } from 'vue-router';
 
 import useUserStore from 'src/store/modules/user';
 import useSettingStore from 'src/store/modules/setting';
 
-import { useRoute } from 'vue-router';
 const userStore = useUserStore();
 const $route = useRoute();
 const settingStore = useSettingStore();

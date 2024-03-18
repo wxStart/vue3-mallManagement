@@ -1,6 +1,6 @@
 <template>
-  <el-button icon="Refresh" circle />
-  <el-button icon="FullScreen" circle />
+  <el-button icon="Refresh" circle @click="settingStore.changeRefresh" />
+  <el-button icon="FullScreen" circle @click="onFullScreen" />
   <el-button icon="Setting" circle />
   <img class="img" src="src/assets/images/background.jpeg" alt="" />
   <el-dropdown>
@@ -18,7 +18,20 @@
   </el-dropdown>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useSettingStore from 'src/store/modules/setting';
+const settingStore = useSettingStore();
+function onFullScreen() {
+  const full = document.fullscreenElement;
+  console.log('full: ');
+  console.log('document.fullscreenElement: ', full);
+  if (!full) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .img {
