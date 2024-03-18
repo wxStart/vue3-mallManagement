@@ -19,7 +19,7 @@
     <el-menu-item
       v-if="menuItem.children && menuItem.children.length == 1"
       :index="menuItem.children[0].path"
-      @click="toPage(menuItem)"
+      @click="toPage(menuItem.children[0])"
     >
       <template #title>
         <div>
