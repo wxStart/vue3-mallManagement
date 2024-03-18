@@ -6,13 +6,14 @@
       :index="menuItem.path"
       @click="toPage(menuItem)"
     >
+      <el-icon color="#409EFC" class="no-inherit">
+        <Component :is="menuItem.meta.icon" />
+      </el-icon>
+      <!-- icon 要放在外面才可以在这贴的时候看到 -->
       <template #title>
-        <div>
-          <el-icon color="#409EFC" class="no-inherit">
-            <Component :is="menuItem.meta.icon" />
-          </el-icon>
+        <span>
           {{ menuItem.meta.title }}
-        </div>
+        </span>
       </template>
     </el-menu-item>
     <!-- 只有一个子路由 -->
@@ -21,13 +22,13 @@
       :index="menuItem.children[0].path"
       @click="toPage(menuItem.children[0])"
     >
+      <el-icon color="#409EFC" class="no-inherit">
+        <Component :is="menuItem.meta.icon" />
+      </el-icon>
       <template #title>
-        <div>
-          <el-icon color="#409EFC" class="no-inherit">
-            <Component :is="menuItem.meta.icon" />
-          </el-icon>
+        <span>
           {{ menuItem.children[0].meta.title }}
-        </div>
+        </span>
       </template>
     </el-menu-item>
     <el-sub-menu
@@ -38,26 +39,37 @@
         <el-icon color="#409EFC" class="no-inherit">
           <Component :is="menuItem.meta.icon" />
         </el-icon>
-        {{ menuItem.meta.title }}
+        <span>
+          <!--  这里要用sapn元素 在折叠时候才有效 -->
+          {{ menuItem.meta.title }}
+        </span>
       </template>
-      <Menu :menuList="menuItem.children"></Menu>
+      <MenuCom
+        v-if="menuItem?.children"
+        :menuList="menuItem.children"
+      ></MenuCom>
     </el-sub-menu>
   </template>
 </template>
 
 <script setup lang="ts">
+// import Menu1 from './Index1.vue';
 import type { _RouteRecordBase } from 'vue-router';
+import { useRouter } from 'vue-router';
+
 const props = defineProps(['menuList']);
+
 const showLists = props.menuList.filter((el: _RouteRecordBase) => !el.hidden);
 
+const $router = useRouter();
 const toPage = (item: _RouteRecordBase) => {
-  console.log('item: ', item);
+  $router.push(item.path);
 };
 </script>
 <script lang="ts">
 export default {
   // eslint-disable-next-line vue/no-reserved-component-names
-  name: 'Menu',
+  name: 'MenuCom',
 };
 </script>
 

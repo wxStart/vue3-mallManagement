@@ -6,5 +6,4 @@ declare module 'vue-router' {
     hidden?: boolean | string | number;
   }
 }
-
 //!  给_RouteRecordBase 添加hidden属性

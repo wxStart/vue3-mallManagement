@@ -10,67 +10,118 @@ export const constRoutes: RouteRecordRaw[] = [
     },
     hidden: true,
   },
+
   {
-    path: '/test',
+    path: '/',
     component: () => import('@/layout/Index.vue'),
     name: 'layout',
-    meta: {
-      title: '布局',
-      icon: 'StarFilled',
-    },
+    redirect: '/home',
+    meta: {},
     children: [
       {
-        path: '/test1',
+        path: '/home',
+        name: 'Home',
         component: () => import('@/views/home/Index.vue'),
         meta: {
-          title: 'test1',
-          icon: 'StarFilled',
+          title: '首页',
+          icon: 'House',
         },
-        children: [
-          {
-            path: '/test1/test1',
-            component: () => import('@/views/home/Index.vue'),
-            meta: {
-              title: 'test1-1',
-              icon: 'StarFilled',
-            },
-          },
-          {
-            path: '/test1/test2',
-            component: () => import('@/views/home/Index.vue'),
-            meta: {
-              title: 'test1-2',
-              icon: 'StarFilled',
-            },
-            hidden: true,
-          },
-        ],
+      },
+    ],
+  },
+
+  {
+    path: '/screen',
+    name: 'Screen',
+    component: () => import('@/views/screen/Index.vue'),
+    meta: {
+      title: '数据大屏',
+      icon: 'Monitor',
+    },
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: () => import('@/layout/Index.vue'),
+    meta: {
+      title: '权限管理',
+      icon: 'Lock',
+    },
+    redirect: '/auth/user',
+    children: [
+      {
+        path: '/auth/user',
+        name: 'AuthUser',
+        component: () => import('@/views/auth/user/Index.vue'),
+        meta: {
+          title: '用户管理',
+          icon: 'Avatar',
+        },
       },
       {
-        path: '/test2',
-        component: () => import('@/views/home/Index.vue'),
+        path: '/auth/role',
+        name: 'AuthRole',
+        component: () => import('@/views/auth/user/Index.vue'),
         meta: {
-          title: 'test2',
-          icon: 'Grid',
+          title: '角色管理',
+          icon: 'HelpFilled',
+        },
+      },
+      {
+        path: '/auth/menu',
+        name: 'Authenu',
+        component: () => import('@/views/auth/menu/Index.vue'),
+        meta: {
+          title: '菜单管理',
+          icon: 'Menu',
         },
       },
     ],
   },
   {
-    path: '/',
+    path: '/product',
     component: () => import('@/layout/Index.vue'),
-    name: 'layout',
+    name: 'Product',
+    redirect: '/product/attr',
     meta: {
-      title: '布局',
-      icon: 'Operation',
+      title: '商品管理',
+      icon: 'Stamp',
     },
     children: [
       {
-        path: 'home',
-        component: () => import('@/views/home/Index.vue'),
+        path: '/product/attr',
+        name: 'Attr',
+        component: () => import('@/views/product/attr/Index.vue'),
         meta: {
-          title: '首页',
-          icon: 'House',
+          title: '属性管理',
+          icon: 'Opportunity',
+        },
+      },
+      {
+        path: '/product/sku',
+        name: 'Sku',
+        component: () => import('@/views/product/sku/Index.vue'),
+        meta: {
+          title: 'SKU管理',
+          icon: 'GoodsFilled',
+        },
+      },
+      {
+        path: '/product/spu',
+        name: 'Spu',
+        component: () => import('@/views/product/spu/Index.vue'),
+        meta: {
+          title: 'SPU管理',
+          icon: 'Briefcase',
+        },
+      },
+      {
+        path: '/product/trademark',
+        name: 'Trademark',
+        component: () => import('@/views/product/trademark/Index.vue'),
+        meta: {
+          title: '品牌管理',
+          icon: 'ShoppingBag',
         },
       },
     ],
@@ -84,13 +135,13 @@ export const constRoutes: RouteRecordRaw[] = [
     },
     hidden: true,
   },
-  {
-    // 没匹配到时候执行
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    meta: {
-      title: '未知',
-    },
-    hidden: true,
-  },
+  // {
+  //   // 没匹配到时候执行
+  //   path: '/:pathMatch(.*)*',
+  //   redirect: '/404',
+  //   meta: {
+  //     title: '未知',
+  //   },
+  //   hidden: true,
+  // },
 ];
