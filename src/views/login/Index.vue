@@ -39,9 +39,9 @@ const rules = reactive<FormRules<RuleForm>>({
   username: [
     {
       required: true,
-      min: 6,
+      min: 4,
       max: 10,
-      message: '用户名长度应该为6到10位',
+      message: '用户名长度应该为4到10位',
       trigger: 'change',
     },
   ],

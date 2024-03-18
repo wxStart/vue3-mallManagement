@@ -5,6 +5,7 @@ import {
   type ComputedOptions,
   type MethodOptions,
 } from 'vue';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
 const allGolbal: {
   [propNmae: string]: Component<any, any, any, ComputedOptions, MethodOptions>;
@@ -19,5 +20,9 @@ export default {
         allGolbal[item];
       app.component(item, com);
     });
+
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component);
+    }
   },
 };

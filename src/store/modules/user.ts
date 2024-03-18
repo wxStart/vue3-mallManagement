@@ -5,11 +5,13 @@ import { reqLogin, reqUserInfo } from 'src/api/user/index';
 import type { loginForm } from '../../api/user/type';
 import type { UserState } from './types/type';
 import { setToken } from 'src/utils/token';
+import { constRoutes } from 'src/router/routes';
 
 const useUserStore = defineStore('User', () => {
-  const user: UserState = reactive({
+  const user: UserState = reactive<UserState>({
     userInfo: {},
     token: sessionStorage.getItem('token'),
+    menuLists: constRoutes,
   });
 
   async function handleLogin(data: loginForm) {
