@@ -12,7 +12,7 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item>退出登录</el-dropdown-item>
+        <el-dropdown-item @click="outLogin">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -20,7 +20,12 @@
 
 <script setup lang="ts">
 import useSettingStore from 'src/store/modules/setting';
+import useUserStore from 'src/store/modules/user';
+
+import { useRouter, useRoute } from 'vue-router';
 const settingStore = useSettingStore();
+const userStore = useUserStore();
+
 function onFullScreen() {
   const full = document.fullscreenElement;
   console.log('full: ');
@@ -31,6 +36,21 @@ function onFullScreen() {
     document.exitFullscreen();
   }
 }
+const $router = useRouter();
+const $route = useRoute();
+
+const outLogin = () => {
+  //1. 向服务发请求  token 无效了
+  //2. 清楚token  清除用户信息相关
+  userStore.userLogout();
+  //3. 跳转到登录页面
+  $router.push({
+    path: '/login',
+    query: {
+      redirect: $route.path,
+    },
+  });
+};
 </script>
 
 <style scoped lang="scss">

@@ -1,14 +1,20 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
+import useUserStore from 'src/store/modules/user';
+
 const request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 5000,
 });
 
 request.interceptors.request.use((config) => {
-  console.log('config: ', config);
-  // config.headers.token =
+  const userStore = useUserStore();
+  const token = userStore.user.token;
+  console.log('token: ', token);
+  if (token) {
+    config.headers.token = token;
+  }
   return config;
 });
 

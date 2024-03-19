@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue';
 import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { ElNotification } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
 
@@ -13,7 +13,8 @@ let loginForm = reactive({
 const loginLoading = ref(false);
 
 const $router = useRouter();
-console.log('$router: ', $router);
+const $route = useRoute();
+console.log('$route: ', $route);
 const userStore = useUserStore();
 
 interface RuleForm {
@@ -64,11 +65,13 @@ const onLogin = (formEl: FormInstance | undefined) => {
 
     try {
       await userStore.handleLogin(loginForm);
-      $router.push('/');
       ElNotification({
         type: 'success',
         message: '登录成功',
       });
+      const redirect: string =
+        ($route.query && ($route.query.redirect as string)) || '';
+      $router.push(redirect || '/');
     } catch (error) {
       console.log('error: ', error);
       ElNotification({
@@ -140,6 +143,10 @@ const onLogin = (formEl: FormInstance | undefined) => {
     top: 25vh;
     background-color: rgba(0, 0, 0, 0.45);
     color: #e3e3f1;
+    h1 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
     .login-btn {
       width: 100%;
     }

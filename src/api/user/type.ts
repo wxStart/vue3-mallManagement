@@ -16,7 +16,7 @@ export interface loginResponseData {
 
 // 返回用户信息的数据类型
 
-interface userInfo {
+export interface userInfo {
   userId: number;
   userName: string;
   password: string;

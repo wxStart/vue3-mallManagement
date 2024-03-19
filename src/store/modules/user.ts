@@ -4,13 +4,13 @@ import { reactive } from 'vue';
 import { reqLogin, reqUserInfo } from 'src/api/user/index';
 import type { loginForm } from '../../api/user/type';
 import type { UserState } from './types/type';
-import { setToken } from 'src/utils/token';
+import { setToken, getToken, clearToken } from 'src/utils/token';
 import { constRoutes } from 'src/router/routes';
 
 const useUserStore = defineStore('User', () => {
   const user: UserState = reactive<UserState>({
     userInfo: {},
-    token: sessionStorage.getItem('token'),
+    token: getToken(),
     menuLists: constRoutes,
   });
 
@@ -21,7 +21,6 @@ const useUserStore = defineStore('User', () => {
       // 本地存储
       // window.sessionStorage.setItem('token', user.token);
       setToken(user.token);
-      setUserInfo();
       return { ok: true, mssage: '登录成功' };
     } else {
       return Promise.reject(new Error(result.message));
@@ -39,7 +38,13 @@ const useUserStore = defineStore('User', () => {
       console.log('handleLogin: ', error);
     }
   }
-  return { user, handleLogin };
+
+  function userLogout() {
+    user.token = null;
+    user.userInfo = {};
+    clearToken();
+  }
+  return { user, handleLogin, setUserInfo, userLogout };
 });
 
 export default useUserStore;
