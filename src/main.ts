@@ -11,6 +11,9 @@ import pinia from './store/index.ts';
 import App from 'src/App.vue';
 
 import 'src/styles/index.scss';
+
+import './permission.ts';
+
 const app = createApp(App);
 
 app.use(globaleComponent);

@@ -4,20 +4,9 @@
 
 <script setup lang="ts">
 import useUserStore from 'src/store/modules/user';
-import { onMounted } from 'vue';
-import { ElNotification } from 'element-plus';
+
 const userStore = useUserStore();
-
-import type { userInfo } from 'src/api/user/type';
-
-onMounted(async () => {
-  await userStore.setUserInfo();
-  ElNotification({
-    type: 'success',
-    message: `${(userStore.user.userInfo as userInfo).userName}`,
-    title: '你好',
-  });
-});
+console.log('userStore: ', userStore);
 </script>
 
 <style lang="scss" scoped></style>

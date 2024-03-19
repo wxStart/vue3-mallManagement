@@ -28,14 +28,13 @@ const useUserStore = defineStore('User', () => {
   }
 
   async function setUserInfo() {
-    try {
-      const result = await reqUserInfo();
-      console.log('result:reqUserInfo  ', result);
-      if (result.code == 200) {
-        user.userInfo = result.data.user;
-      }
-    } catch (error) {
-      console.log('handleLogin: ', error);
+    const result = await reqUserInfo();
+    console.log('result:reqUserInfo  ', result);
+    if (result.code == 200) {
+      user.userInfo = result.data.user;
+      return 'ok';
+    } else {
+      return Promise.reject('获取用户信息失败');
     }
   }
 
