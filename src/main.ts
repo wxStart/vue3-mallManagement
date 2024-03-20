@@ -13,12 +13,16 @@ import App from 'src/App.vue';
 import 'src/styles/index.scss';
 
 import './permission.ts';
+import { isHasButton } from 'src/directive/has';
 
 const app = createApp(App);
 
 app.use(globaleComponent);
 app.use(router);
 app.use(pinia);
+
+// 注册全局指令
+isHasButton(app);
 
 app.use(ElementPlus);
 app.mount('#app');

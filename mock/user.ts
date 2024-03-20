@@ -17,15 +17,15 @@ const users = [
       'Trademark',
     ],
     token: 'admin token',
-    buttons: ['cuser.detail'],
+    buttons: ['add', 'search', 'delete'],
   },
   {
     userId: 2,
-    userName: 'sys',
+    userName: 'sys1',
     password: '111111',
     routes: ['Auth', 'AuthUser', 'AuthRole', 'AuthMenu'],
     token: 'sys token',
-    buttons: ['cuser.detail', 'cuser.user'],
+    buttons: ['add', 'search'],
   },
   {
     userId: 2,
@@ -33,7 +33,7 @@ const users = [
     password: '111111',
     routes: ['Auth', 'AuthRole', 'AuthMenu'],
     token: 'wx11 token',
-    buttons: ['cuser.detail', 'cuser.user'],
+    buttons: [],
   },
 ];
 export default [

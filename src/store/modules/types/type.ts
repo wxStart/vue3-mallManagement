@@ -6,4 +6,6 @@ export interface UserState {
   userInfo: object;
   menuLists: RouteRecordRaw[];
   routes: string[];
+  buttons: string[];
+  userName: string;
 }

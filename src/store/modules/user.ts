@@ -30,6 +30,8 @@ const useUserStore = defineStore('User', () => {
     token: getToken(),
     routes: [],
     menuLists: constRoutes,
+    buttons: [],
+    userName: '',
   });
 
   async function handleLogin(data: loginForm) {
@@ -52,6 +54,8 @@ const useUserStore = defineStore('User', () => {
       user.userInfo = result.data.user;
       const userRoutes = result.data.user.routes;
       user.routes = userRoutes;
+      user.buttons = result.data.user.buttons;
+      user.userName = result.data.user.userName;
 
       const userAsnycRoute = filterAsnycRoute(
         cloneDeep(asnycRoute),

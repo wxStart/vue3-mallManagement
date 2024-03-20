@@ -5,7 +5,7 @@
   <img class="img" src="src/assets/images/background.jpeg" alt="" />
   <el-dropdown>
     <span class="el-dropdown-link">
-      张三
+      {{ userStore.user.userName }}
       <el-icon class="el-icon--right">
         <arrow-down />
       </el-icon>
