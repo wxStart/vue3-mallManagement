@@ -5,4 +5,5 @@ export interface UserState {
   token: string | null;
   userInfo: object;
   menuLists: RouteRecordRaw[];
+  routes: string[];
 }

@@ -5,12 +5,30 @@ import { reqLogin, reqUserInfo } from 'src/api/user/index';
 import type { loginForm } from '../../api/user/type';
 import type { UserState } from './types/type';
 import { setToken, getToken, clearToken } from 'src/utils/token';
-import { constRoutes } from 'src/router/routes';
+import { constRoutes, asnycRoute, anyRoute } from 'src/router/routes';
+import router from 'src/router/index';
+import type { RouteRecordRaw } from 'vue-router';
+
+import cloneDeep from 'lodash/cloneDeep';
+
+// 过滤异步路由
+const filterAsnycRoute = (routes: RouteRecordRaw[], userRoutes: string[]) => {
+  return routes.filter((item) => {
+    if (userRoutes.includes(item.name as string)) {
+      if (item.children && item.children.length > 0) {
+        item.children = filterAsnycRoute(item.children, userRoutes);
+        item.redirect = item.children[0].path;
+      }
+      return true;
+    }
+  });
+};
 
 const useUserStore = defineStore('User', () => {
   const user: UserState = reactive<UserState>({
     userInfo: {},
     token: getToken(),
+    routes: [],
     menuLists: constRoutes,
   });
 
@@ -32,6 +50,22 @@ const useUserStore = defineStore('User', () => {
     console.log('result:reqUserInfo  ', result);
     if (result.code == 200) {
       user.userInfo = result.data.user;
+      const userRoutes = result.data.user.routes;
+      user.routes = userRoutes;
+
+      const userAsnycRoute = filterAsnycRoute(
+        cloneDeep(asnycRoute),
+        userRoutes,
+      );
+      console.log('userAsnycRoute: ', userAsnycRoute);
+      const menuLists = [...constRoutes, ...userAsnycRoute, ...anyRoute];
+      // 根据权限动态添加路由
+      // 异步添加路由
+      [...userAsnycRoute, ...anyRoute].forEach((el) => {
+        router.addRoute(el);
+      });
+      user.menuLists = menuLists;
+      console.log('menuLists: ', menuLists);
       return 'ok';
     } else {
       return Promise.reject('获取用户信息失败');

@@ -4,7 +4,7 @@ export const constRoutes: RouteRecordRaw[] = [
   {
     path: '/login',
     component: () => import('@/views/login/Index.vue'),
-    name: 'login',
+    name: 'Login',
     meta: {
       title: '登录',
     },
@@ -14,7 +14,7 @@ export const constRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('@/layout/Index.vue'),
-    name: 'layout',
+    name: 'Layout',
     redirect: '/home',
     meta: {},
     children: [
@@ -39,6 +39,19 @@ export const constRoutes: RouteRecordRaw[] = [
       icon: 'Monitor',
     },
   },
+
+  {
+    path: '/404',
+    component: () => import('@/views/404/Index.vue'),
+    name: '404',
+    meta: {
+      title: '404',
+    },
+    hidden: true,
+  },
+];
+
+export const asnycRoute: RouteRecordRaw[] = [
   {
     path: '/auth',
     name: 'Auth',
@@ -69,7 +82,7 @@ export const constRoutes: RouteRecordRaw[] = [
       },
       {
         path: '/auth/menu',
-        name: 'Authenu',
+        name: 'AuthMenu',
         component: () => import('@/views/auth/menu/Index.vue'),
         meta: {
           title: '菜单管理',
@@ -126,22 +139,17 @@ export const constRoutes: RouteRecordRaw[] = [
       },
     ],
   },
+];
+
+export const anyRoute: RouteRecordRaw[] = [
   {
-    path: '/404',
-    component: () => import('@/views/404/Index.vue'),
-    name: '404',
+    // 没匹配到时候执行
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+    name: 'Any',
     meta: {
-      title: '404',
+      title: '未知',
     },
     hidden: true,
   },
-  // {
-  //   // 没匹配到时候执行
-  //   path: '/:pathMatch(.*)*',
-  //   redirect: '/404',
-  //   meta: {
-  //     title: '未知',
-  //   },
-  //   hidden: true,
-  // },
 ];

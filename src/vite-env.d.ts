@@ -8,5 +8,6 @@ declare module '*.vue' {
 declare module 'element-plus/dist/locale/zh-cn';
 
 declare module 'nprogress';
-
+declare module 'lodash';
+declare module 'lodash/*';
 // declare module '@/*';

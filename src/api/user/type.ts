@@ -1,3 +1,9 @@
+interface ResponseData {
+  code: number;
+  message?: string;
+  ok?: boolean;
+}
+
 // 登录接口需要携带的ts参数
 export interface loginForm {
   username: string;
@@ -7,10 +13,8 @@ interface loginDataType {
   token: string;
 }
 // 登录接口返回的数据类型
-export interface loginResponseData {
-  code: number;
+export interface loginResponseData extends ResponseData {
   data: loginDataType;
-  message?: string;
   [props: string]: any;
 }
 
@@ -29,9 +33,7 @@ interface user {
   user: userInfo;
 }
 
-export interface userInfoResponseData {
-  code: number;
+export interface userInfoResponseData extends ResponseData {
   data: user;
-  message?: string;
   [props: string]: any;
 }

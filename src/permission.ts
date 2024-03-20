@@ -43,7 +43,9 @@ router.beforeEach(async (to: any, from: any, next: any) => {
             message: `${(userStore.user.userInfo as userInfo).userName}`,
             title: '你好',
           });
-          next();
+          // 刷新的时候 是异步路由 还没加载好就会出现白屏  使用
+          // next();
+          next({ ...to });
         } catch (error) {
           userStore.userLogout();
           next({
